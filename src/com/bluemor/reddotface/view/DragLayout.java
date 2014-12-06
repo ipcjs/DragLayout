@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bluemor.reddotface.R;
+import com.ipcjs.utils.L;
 import com.nineoldandroids.view.ViewHelper;
 
 public class DragLayout extends FrameLayout {
@@ -42,6 +43,13 @@ public class DragLayout extends FrameLayout {
     public DragLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
         this.context = context;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        boolean out = super.dispatchTouchEvent(ev);
+        L.p("传递：" + L.value2FinalString(MotionEvent.class, ev.getActionMasked(), "ACTION") + ">>" + out);
+        return out;
     }
 
     public DragLayout(Context context, AttributeSet attrs, int defStyle) {
@@ -174,13 +182,16 @@ public class DragLayout extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return dragHelper.shouldInterceptTouchEvent(ev) && gestureDetector.onTouchEvent(ev);
+        boolean out = dragHelper.shouldInterceptTouchEvent(ev) && gestureDetector.onTouchEvent(ev);
+        L.p("拦截：" + L.value2FinalString(MotionEvent.class, ev.getActionMasked(), "ACTION") + ">>" + out);
+        return out;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent e) {
+    public boolean onTouchEvent(MotionEvent ev) {
+        L.p("处理：" + L.value2FinalString(MotionEvent.class, ev.getActionMasked(), "ACTION"));
         try {
-            dragHelper.processTouchEvent(e);
+            dragHelper.processTouchEvent(ev);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

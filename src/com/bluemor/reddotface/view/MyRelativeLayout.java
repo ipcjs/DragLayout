@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import com.bluemor.reddotface.view.DragLayout.Status;
 
 public class MyRelativeLayout extends RelativeLayout {
-    private DragLayout dl;
+    private DragLayout mDragLayout;
 
     public MyRelativeLayout(Context context) {
         super(context);
@@ -23,12 +23,12 @@ public class MyRelativeLayout extends RelativeLayout {
     }
 
     public void setDragLayout(DragLayout dl) {
-        this.dl = dl;
+        this.mDragLayout = dl;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (dl.getStatus() != Status.Close) {
+        if (mDragLayout.getStatus() != Status.Close) {
             return true;
         }
         return super.onInterceptTouchEvent(event);
@@ -36,9 +36,9 @@ public class MyRelativeLayout extends RelativeLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (dl.getStatus() != Status.Close) {
+        if (mDragLayout.getStatus() != Status.Close) {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                dl.close();
+                mDragLayout.close();
             }
             return true;
         }

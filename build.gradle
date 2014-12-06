@@ -10,11 +10,15 @@ apply plugin: 'android'
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
-    compile 'com.android.support:support-v4:21.0.+'
+    compile 'com.ipcjs:mylibrarys:0.0.2'
+}
+repositories {
+    mavenLocal()
 }
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
+
     buildToolsVersion "20.0.0"
 
     sourceSets {
