@@ -61,7 +61,7 @@ public class TestView extends RelativeLayout {
 //            e.printStackTrace();
         }
         L.p("处理：" + L.value2FinalString(MotionEvent.class, event.getActionMasked(), "ACTION"));
-        return false;
+        return true;
     }
 
     private void init() {
