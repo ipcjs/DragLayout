@@ -2,6 +2,7 @@ package com.bluemor.reddotface.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
@@ -41,16 +42,26 @@ public class TestView extends RelativeLayout {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        L.life();
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        L.life();
+        super.onLayout(changed, l, t, r, b);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        L.life();
+        super.onDraw(canvas);
+    }
+
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        boolean result = false;
-        if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
-//            mDragHelper.processTouchEvent(ev);
-            result = false;
-        }else{
-            result = true;
-        }
-        mDragHelper.shouldInterceptTouchEvent(ev);
-        return result;
+        return mDragHelper.shouldInterceptTouchEvent(ev);
     }
 
     @Override
@@ -58,9 +69,8 @@ public class TestView extends RelativeLayout {
         try {
             mDragHelper.processTouchEvent(event);
         } catch (Exception e) {
-//            e.printStackTrace();
         }
-        L.p("处理：" + L.value2FinalString(MotionEvent.class, event.getActionMasked(), "ACTION"));
+//        L.p("处理：" + L.value2FinalString(MotionEvent.class, event.getActionMasked(), "ACTION"));
         return true;
     }
 
